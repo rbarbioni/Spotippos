@@ -27,6 +27,7 @@ nbdist/
 /.idea/
 /gradle/
 /out/
+/classes
 
 ### Javascript
 .DS_Store
