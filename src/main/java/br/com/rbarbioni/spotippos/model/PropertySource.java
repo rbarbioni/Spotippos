@@ -9,24 +9,23 @@ import java.util.List;
 /**
  * Created by renan on 26/03/2017.
  */
-public class SpotipposResponse extends AbstractSpotippos {
+public class PropertySource extends AbstractProperty {
 
-    @JsonProperty("foundProperties")
+    @JsonProperty("totalProperties")
     private final Long foundProperties;
 
     @JsonCreator
-    public SpotipposResponse(@JsonProperty("properties") List<Spotippos> spotippos) {
+    public PropertySource(@JsonProperty("properties") List<Property> spotippos) {
         super(spotippos);
         this.foundProperties = Long.valueOf(spotippos.size());
     }
 
-    public SpotipposResponse(Spotippos spotippos) {
-        super(Arrays.asList(spotippos));
+    public PropertySource(Property property) {
+        super(Arrays.asList(property));
         this.foundProperties = 1L;
     }
 
     public Long getFoundProperties() {
         return foundProperties;
     }
-
 }

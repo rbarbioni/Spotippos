@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by renan on 26/03/2017.
  */
-public class Spotippos implements Serializable{
+public class Property implements Serializable{
 
     @JsonProperty("id")
     private Long id;
@@ -39,11 +39,11 @@ public class Spotippos implements Serializable{
     @JsonProperty("squareMeters")
     private Long squareMetters;
 
-    private Spotippos(){
+    private Property(){
         super();
     }
 
-    public Spotippos(Integer x, Integer y, String title, BigDecimal price, String description, Integer beds, Integer baths, Long squareMetters) {
+    public Property(Integer x, Integer y, String title, BigDecimal price, String description, Integer beds, Integer baths, Long squareMetters) {
         this();
         this.x = x;
         this.y = y;
