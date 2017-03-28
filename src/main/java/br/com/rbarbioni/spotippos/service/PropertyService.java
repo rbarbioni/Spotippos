@@ -25,7 +25,8 @@ public class PropertyService {
     }
 
     public PropertyResponse findById(Long id){
-        return new PropertyResponse(this.propertyRepository.findById(id));
+        Property property = this.propertyRepository.findById(id);
+        return new PropertyResponse(property);
     }
 
     public PropertyResponse find (Integer ax, Integer ay, Integer bx, Integer by){

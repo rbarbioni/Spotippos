@@ -2,6 +2,7 @@ package br.com.rbarbioni.spotippos.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -43,18 +44,6 @@ public class Property implements Serializable{
         super();
     }
 
-    public Property(Integer x, Integer y, String title, BigDecimal price, String description, Integer beds, Integer baths, Long squareMetters) {
-        this();
-        this.x = x;
-        this.y = y;
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.beds = beds;
-        this.baths = baths;
-        this.squareMetters = squareMetters;
-    }
-
     public Long getId() {
         return id;
     }
@@ -91,9 +80,19 @@ public class Property implements Serializable{
         return squareMetters;
     }
 
+    @JsonSetter
+    public void setLat(Integer lat){
+        this.x = lat;
+    }
+
+    @JsonSetter
+    public void setLong(Integer lon){
+        this.y = lon;
+    }
+
     @JsonProperty("provinces")
     public List<String> provinces (){
-        return null;
+        return Provinces.getProvinces(this);
     }
 
     @JsonIgnore
