@@ -30,7 +30,7 @@ public class Provinces {
 
             Map.Entry<String, Boundaries> entry = iterator.next();
 
-            if(in(property, entry.getValue())){
+            if(contains(property, entry.getValue())){
                 provinces.add(entry.getKey());
             }
         }
@@ -38,18 +38,13 @@ public class Provinces {
         return provinces;
     }
 
-    private static boolean in(Property property, Boundaries boundaries){
+    private static boolean contains(Property property, Boundaries boundaries){
 
-        int Xmin = boundaries.getUpperLeft().getX() < boundaries.getBottomRight().getX() ? boundaries.getUpperLeft().getX() : boundaries.getBottomRight().getX();
-        int Xmax = boundaries.getUpperLeft().getX() > boundaries.getBottomRight().getX() ? boundaries.getUpperLeft().getX() : boundaries.getBottomRight().getX();
-
-        int Ymin = boundaries.getUpperLeft().getY() < boundaries.getBottomRight().getY() ? boundaries.getUpperLeft().getY() : boundaries.getBottomRight().getY();
-        int Ymax = boundaries.getUpperLeft().getY() > boundaries.getBottomRight().getY() ? boundaries.getUpperLeft().getY() : boundaries.getBottomRight().getY();
-
-        return between(property.getX(), Xmin, Xmax) && between(property.getY(), Ymin, Ymax);
+        return
+                boundaries.getUpperLeft().getX() <= property.getX()
+                && boundaries.getBottomRight().getX() >= property.getX()
+                && boundaries.getUpperLeft().getY() >= property.getY()
+                && boundaries.getBottomRight().getY() <= property.getY();
     }
 
-    private static boolean between(int value, int min, int max) {
-        return min <= value && value <= max;
-    }
 }

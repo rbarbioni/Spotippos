@@ -52,8 +52,27 @@ public class PropertyRepository {
     }
 
     public synchronized Property save(Property property){
-        PROPERTIES.put(property.generateId(PROPERTIES.size()), property);
+        PROPERTIES.put(property.getId(), property);
         return property;
+    }
+
+    public synchronized List<Property> query(Integer ax, Integer ay, Integer bx, Integer by){
+
+        List<Property> properties = new ArrayList<>();
+
+        Iterator<Map.Entry<Long, Property>> iterator = PROPERTIES.entrySet().iterator();
+
+        while (iterator.hasNext()){
+
+            Map.Entry<Long, Property> entry = iterator.next();
+
+            Property property = entry.getValue();
+            if((property.getX() >= ax && property.getX() <= bx) && (property.getY() >= ay && property.getY() <= by)){
+                properties.add(property);
+            }
+        }
+
+        return properties;
     }
 
     public synchronized Property findById(Long id){

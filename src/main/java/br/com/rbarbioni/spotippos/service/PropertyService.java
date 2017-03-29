@@ -1,5 +1,6 @@
 package br.com.rbarbioni.spotippos.service;
 
+import br.com.rbarbioni.spotippos.exception.SpotipposException;
 import br.com.rbarbioni.spotippos.model.Property;
 import br.com.rbarbioni.spotippos.model.PropertyResponse;
 import br.com.rbarbioni.spotippos.repository.PropertyRepository;
@@ -26,11 +27,15 @@ public class PropertyService {
 
     public PropertyResponse findById(Long id){
         Property property = this.propertyRepository.findById(id);
+
+        if(property == null){
+            throw new SpotipposException(404, "Resource not found");
+        }
+
         return new PropertyResponse(property);
     }
 
-    public PropertyResponse find (Integer ax, Integer ay, Integer bx, Integer by){
-        return null;
+    public PropertyResponse query (Integer ax, Integer ay, Integer bx, Integer by){
+        return new PropertyResponse(this.propertyRepository.query(ax, ay, bx, by));
     }
-
 }
