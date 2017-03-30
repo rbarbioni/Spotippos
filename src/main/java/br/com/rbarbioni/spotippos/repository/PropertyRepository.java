@@ -56,9 +56,9 @@ public class PropertyRepository {
         return property;
     }
 
-    public synchronized List<Property> query(Integer ax, Integer ay, Integer bx, Integer by){
+    public synchronized Set<Property> query(Integer ax, Integer ay, Integer bx, Integer by){
 
-        List<Property> properties = new ArrayList<>();
+        Set<Property> properties = new HashSet<>();
 
         Iterator<Map.Entry<Long, Property>> iterator = PROPERTIES.entrySet().iterator();
 
