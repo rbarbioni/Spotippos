@@ -41,7 +41,7 @@ public class PropertyController {
     }
 
     @RequestMapping(method = {RequestMethod.POST})
-    public PropertyResponse save(@NotNull @Valid @RequestBody Property property){
+    public Property save(@NotNull @Valid @RequestBody Property property){
         return this.propertyService.save(property);
     }
 }

@@ -1,7 +1,9 @@
 package br.com.rbarbioni.spotippos.repository;
 
+import br.com.rbarbioni.spotippos.exception.SpotipposException;
 import br.com.rbarbioni.spotippos.model.Property;
 import br.com.rbarbioni.spotippos.model.PropertySource;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;

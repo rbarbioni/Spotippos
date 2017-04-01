@@ -72,6 +72,18 @@ public class Property implements Serializable{
         this.id = seq.incrementAndGet();
     }
 
+    public Property(Integer x, Integer y, String title, BigDecimal price, String description, Integer beds, Integer baths, Long squareMetters) {
+        this();
+        this.x = x;
+        this.y = y;
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.beds = beds;
+        this.baths = baths;
+        this.squareMetters = squareMetters;
+    }
+
     public Long getId() {
         return id;
     }

@@ -21,8 +21,8 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
-    public PropertyResponse save(Property property){
-        return new PropertyResponse(this.propertyRepository.save(property));
+    public Property save(Property property){
+        return this.propertyRepository.save(property);
     }
 
     public PropertyResponse findById(Long id){
