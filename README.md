@@ -24,7 +24,9 @@ chmod +x gradlew
 Windows
 gradlew.bat
 
-java -jar build/libs/Spotippos-0.0.1-SNAPSHOT.war
+chmod +x build/libs/spotippos-0.0.1-SNAPSHOT.war
+
+java -jar build/libs/spotippos-0.0.1-SNAPSHOT.war
 </pre>
 
 ## Consumindo a API
