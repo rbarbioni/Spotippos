@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @RestController
 @RequestMapping("/properties")
-public class PropertyController {
+class PropertyController {
 
     private final PropertyService propertyService;
 
@@ -26,16 +24,16 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public PropertyResponse findById(@NotNull @PathVariable Long id){
+    public Property findById(@NotNull @PathVariable Long id){
         return this.propertyService.findById(id);
     }
 
     @RequestMapping(method = {RequestMethod.GET})
     public PropertyResponse query(
-            @RequestParam("ax") @NotNull @Min(0) @Max(1400) Integer ax,
-            @RequestParam("ay") @NotNull @Min(0) @Max(1000) Integer ay,
-            @RequestParam("bx") @NotNull @Min(0) @Max(1400) Integer bx,
-            @RequestParam("by") @NotNull @Min(0) @Max(1000) Integer by){
+            @RequestParam("ax") Integer ax,
+            @RequestParam("ay") Integer ay,
+            @RequestParam("bx") Integer bx,
+            @RequestParam("by") Integer by){
 
         return this.propertyService.query(ax, ay, bx, by);
     }

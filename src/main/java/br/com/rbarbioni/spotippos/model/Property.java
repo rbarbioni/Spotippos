@@ -1,8 +1,8 @@
 package br.com.rbarbioni.spotippos.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Max;
@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -19,69 +18,72 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Property implements Serializable{
 
+    private static final long serialVersionUID = -955231805543935925L;
+
     private static final AtomicLong seq = new AtomicLong();
 
     @JsonProperty("id")
-    private Long id;
+    private final Long id;
 
-    @NotNull
-    @Min(0)
-    @Max(1400)
-    @JsonProperty("x")
-    private Integer x;
+    @NotNull(message = "validation.property.x.null")
+    @Min(value = 0, message = "validation.property.x.min")
+    @Max(value = 1400, message = "validation.property.x.max")
+    private final Integer x;
 
-    @NotNull
-    @Min(0)
-    @Max(1000)
-    @JsonProperty("y")
-    private Integer y;
+    @NotNull(message = "validation.property.y.null")
+    @Min(value = 0, message = "validation.property.y.min")
+    @Max(value = 1000, message = "validation.property.y.max")
+    private final Integer y;
 
-    @NotEmpty
-    @JsonProperty("title")
-    private String title;
+    @NotEmpty(message = "validation.property.title.null_or_empty")
+    private final String title;
 
-    @NotNull
-    @Min(0)
-    @JsonProperty("price")
-    private BigDecimal price;
+    @NotNull(message = "validation.property.price.null")
+    @Min(value = 0, message = "validation.property.price.min")
+    private final BigDecimal price;
 
-    @NotEmpty
-    @JsonProperty("description")
-    private String description;
+    @NotEmpty(message = "validation.property.description.null_or_empty")
+    private final String description;
 
-    @NotNull
-    @Min(1)
-    @Max(5)
-    @JsonProperty("beds")
-    private Integer beds;
+    @NotNull(message = "validation.property.beds.null")
+    @Min(value = 1, message = "validation.property.beds.min")
+    @Max(value = 5, message = "validation.property.beds.max")
+    private final Integer beds;
 
-    @NotNull
-    @Min(1)
-    @Max(4)
-    @JsonProperty("baths")
-    private Integer baths;
+    @NotNull(message = "validation.property.baths.null")
+    @Min(value = 1, message = "validation.property.baths.min")
+    @Max(value = 4, message = "validation.property.baths.max")
+    private final Integer baths;
 
-    @NotNull
-    @Min(20)
-    @Max(240)
-    @JsonProperty("squareMeters")
-    private Long squareMetters;
+    @NotNull(message = "validation.property.squareMeters.null")
+    @Min(value = 20, message = "validation.property.squareMeters.min")
+    @Max(value = 240, message = "validation.property.squareMeters.max")
+    private final Long squareMeters;
 
-    private Property(){
-        super();
+    private final List<String> provinces;
+
+    @JsonCreator
+    public Property(
+            @JsonProperty("x") Integer x,
+            @JsonProperty("y") Integer y,
+            @JsonProperty("lat") Integer lat,
+            @JsonProperty("long") Integer lon,
+            @JsonProperty("title") String title,
+            @JsonProperty("price") BigDecimal price,
+            @JsonProperty("description") String description,
+            @JsonProperty("beds") Integer beds,
+            @JsonProperty("baths") Integer baths,
+            @JsonProperty("squareMeters") Long squareMeters) {
         this.id = seq.incrementAndGet();
-    }
-
-    public Property(Integer x, Integer y, String title, BigDecimal price, String description, Integer beds, Integer baths, Long squareMetters) {
-        this();
-        this.x = x;
-        this.y = y;
+        this.x = x != null ? x : lat;
+        this.y = y != null ? y : lon;
         this.title = title;
         this.price = price;
         this.description = description;
         this.beds = beds;
         this.baths = baths;
-        this.squareMetters = squareMetters;
+        this.squareMeters = squareMeters;
+        this.provinces = Provinces.getProvinces(this.x, this.y);
     }
 
     public Long getId() {
@@ -116,23 +118,16 @@ public class Property implements Serializable{
         return baths;
     }
 
-    public Long getSquareMetters() {
-        return squareMetters;
+    public Long getSquareMeters() {
+        return squareMeters;
     }
 
-    @JsonSetter
-    public void setLat(Integer lat){
-        this.x = lat;
+    @JsonGetter
+    public List<String> getProvinces (){
+        return provinces;
     }
 
-    @JsonSetter
-    public void setLong(Integer lon){
-        this.y = lon;
+    public boolean apply(Integer ax, Integer ay, Integer bx, Integer by){
+        return (this.x >= ax && this.x <= bx) && (this.y >= ay && this.y <= by);
     }
-
-    @JsonProperty("provinces")
-    public List<String> provinces (){
-        return Provinces.getProvinces(this);
-    }
-
 }

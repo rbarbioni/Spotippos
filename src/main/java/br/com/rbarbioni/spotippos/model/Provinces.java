@@ -1,11 +1,12 @@
 package br.com.rbarbioni.spotippos.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by renan on 27/03/17.
  */
-public class Provinces {
+class Provinces {
 
     private static Map<String, Boundaries> getProvinces(){
 
@@ -19,32 +20,26 @@ public class Provinces {
         return provinces;
     }
 
-    public static List<String> getProvinces(Property property){
+    public static List<String> getProvinces(Integer x, Integer y){
 
-        ArrayList<String> provinces = new ArrayList<>();
-
-        Map<String, Boundaries> provincesMap = getProvinces();
-
-        Iterator<Map.Entry<String, Boundaries>> iterator = provincesMap.entrySet().iterator();
-        while (iterator.hasNext()){
-
-            Map.Entry<String, Boundaries> entry = iterator.next();
-
-            if(contains(property, entry.getValue())){
-                provinces.add(entry.getKey());
-            }
+        if(x == null && y == null){
+            return null;
         }
 
-        return provinces;
+        return getProvinces().entrySet()
+                .stream()
+                .filter(entry -> contains(x, y, entry.getValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
-    private static boolean contains(Property property, Boundaries boundaries){
+    private static boolean contains(Integer x, Integer y, Boundaries boundaries){
 
         return
-                boundaries.getUpperLeft().getX() <= property.getX()
-                && boundaries.getBottomRight().getX() >= property.getX()
-                && boundaries.getUpperLeft().getY() >= property.getY()
-                && boundaries.getBottomRight().getY() <= property.getY();
+                boundaries.getUpperLeft().getX() <= x
+                && boundaries.getBottomRight().getX() >= x
+                && boundaries.getUpperLeft().getY() >= y
+                && boundaries.getBottomRight().getY() <= y;
     }
 
 }

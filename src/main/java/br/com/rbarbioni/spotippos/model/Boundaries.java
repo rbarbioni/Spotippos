@@ -2,10 +2,14 @@ package br.com.rbarbioni.spotippos.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.io.Serializable;
+
 /**
  * Created by renan on 27/03/2017.
  */
-public class Boundaries {
+class Boundaries implements Serializable {
+
+    private static final long serialVersionUID = -5771561915227219984L;
 
     private final Point upperLeft;
 

@@ -9,6 +9,8 @@ import java.io.Serializable;
  */
 public class Point implements Serializable {
 
+    private static final long serialVersionUID = 3700803024801347836L;
+
     private final Integer x;
 
     private final Integer y;

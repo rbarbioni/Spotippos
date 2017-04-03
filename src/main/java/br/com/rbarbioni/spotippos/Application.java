@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {SpringApplication.run(Application.class, args);}
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
 
 	@Bean
-	public ObjectMapper objectMapper(){
+	public ObjectMapper objectMapper() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

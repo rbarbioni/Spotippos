@@ -1,9 +1,7 @@
 package br.com.rbarbioni.spotippos.repository;
 
-import br.com.rbarbioni.spotippos.exception.SpotipposException;
 import br.com.rbarbioni.spotippos.model.Property;
 import br.com.rbarbioni.spotippos.model.PropertySource;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +11,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidationException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -63,21 +62,10 @@ public class PropertyRepository {
 
     public synchronized Set<Property> query(Integer ax, Integer ay, Integer bx, Integer by){
 
-        Set<Property> properties = new HashSet<>();
-
-        Iterator<Map.Entry<Long, Property>> iterator = PROPERTIES.entrySet().iterator();
-
-        while (iterator.hasNext()){
-
-            Map.Entry<Long, Property> entry = iterator.next();
-
-            Property property = entry.getValue();
-            if((property.getX() >= ax && property.getX() <= bx) && (property.getY() >= ay && property.getY() <= by)){
-                properties.add(property);
-            }
-        }
-
-        return properties;
+        return PROPERTIES.values()
+                .parallelStream()
+                .filter(property -> property.apply(ax, ay, bx, by))
+                .collect(Collectors.toSet());
     }
 
     public synchronized Property findById(Long id){

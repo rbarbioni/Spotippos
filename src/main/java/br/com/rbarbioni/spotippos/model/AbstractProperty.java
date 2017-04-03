@@ -2,8 +2,7 @@ package br.com.rbarbioni.spotippos.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Created by renan on 26/03/2017.
@@ -11,13 +10,13 @@ import java.util.Set;
 public abstract class AbstractProperty {
 
     @JsonProperty("properties")
-    private final Set<Property> properties;
+    private final Collection<Property> properties;
 
-    protected AbstractProperty(Set<Property> properties) {
+    AbstractProperty(Collection<Property> properties) {
         this.properties = properties;
     }
 
-    public Set<Property> getProperties() {
+    public Collection<Property> getProperties() {
         return properties;
     }
 }

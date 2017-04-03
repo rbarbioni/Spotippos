@@ -5,6 +5,7 @@ import br.com.rbarbioni.spotippos.model.Property;
 import br.com.rbarbioni.spotippos.model.PropertyResponse;
 import br.com.rbarbioni.spotippos.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,14 +26,13 @@ public class PropertyService {
         return this.propertyRepository.save(property);
     }
 
-    public PropertyResponse findById(Long id){
+    public Property findById(Long id){
         Property property = this.propertyRepository.findById(id);
 
         if(property == null){
-            throw new SpotipposException(404, "Resource not found");
+            throw new SpotipposException(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name());
         }
-
-        return new PropertyResponse(property);
+        return property;
     }
 
     public PropertyResponse query (Integer ax, Integer ay, Integer bx, Integer by){

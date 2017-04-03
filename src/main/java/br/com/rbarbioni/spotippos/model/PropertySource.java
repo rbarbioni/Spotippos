@@ -1,32 +1,28 @@
 package br.com.rbarbioni.spotippos.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by renan on 26/03/2017.
  */
-public class PropertySource extends AbstractProperty {
+public class PropertySource extends AbstractProperty implements Serializable {
 
-    @JsonProperty("totalProperties")
+    private static final long serialVersionUID = 2283181207844719728L;
+
     private final Long foundProperties;
 
     @JsonCreator
     public PropertySource(@JsonProperty("properties") Set<Property> spotippos) {
         super(spotippos);
-        this.foundProperties = Long.valueOf(spotippos.size());
+        this.foundProperties = (long) spotippos.size();
     }
 
-    public PropertySource(Property property) {
-        super(new HashSet<>(Arrays.asList(property)));
-        this.foundProperties = 1L;
-    }
-
+    @JsonGetter("totalProperties")
     public Long getFoundProperties() {
         return foundProperties;
     }
