@@ -29,8 +29,6 @@ java -jar build/libs/Spotippos-0.0.1-SNAPSHOT.war
 
 ## Consumindo a API
 
-
-
 GET --> /properties/1
 <pre>
 RESPONSE
@@ -132,4 +130,19 @@ Jboss,
 Jety
 e etc..
 
+## Live on Openshift
+Aplicação está disponível no Openshift
 
+http://spotippos-pusherad.rhcloud.com
+
+GET --> /properties/1
+
+GET --> /properties?ax=0&bx=700&ay=0&by=500
+
+POST --> /properties
+
+---
+
+rbarbioni
+
+;D
