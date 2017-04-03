@@ -27,6 +27,8 @@ gradlew.bat
 chmod +x build/libs/spotippos-0.0.1-SNAPSHOT.war
 
 java -jar build/libs/spotippos-0.0.1-SNAPSHOT.war
+
+Aplicação será executada em http://localhost:8080
 </pre>
 
 ## Consumindo a API
