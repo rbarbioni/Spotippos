@@ -124,12 +124,12 @@ RESPONSE
 
 Foi utilizado o plugin Gradle "war" e o setup do projeto foi desenvolvido para rodar de forma embedded ou fazendo deploy em containers Java.
 
-Basta copiar arquivo build/libs/Spotippos-0.0.1-SNAPSHOT.war para pasta deployment do servidor de sua preferência.
+Basta copiar arquivo build/libs/Spotippos-0.0.1-SNAPSHOT.war para pasta deployment ou equivalente do servidor de aplicação de sua preferência
 
 EX:
-Tomcat;
-Jboss;
-Jety;
-etc..
+Tomcat,
+Jboss,
+Jety
+e etc..
 
 
